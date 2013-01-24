@@ -1,0 +1,40 @@
+[user]
+	name = Jeff Girard
+	email = jeff@somebodysomeone.com
+
+[color]
+	ui = auto
+
+[color "diff"]
+	meta = blue bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+
+[color "branch"]
+	current = yellow reverse
+	local = yellow bold
+	remote = green bold
+	plain = red bold
+
+[color "status"]
+	added = yellow
+	changed = green bold
+	untracked = blue bold
+
+[alias]
+	rbc = rebase --continue
+	rba = rebase --abort
+	rb = rebase
+	co = checkout
+	st = status
+	cm = commit -m
+	cam = commit -a -m
+	pullo = pull origin
+	pullor = pull --rebase origin
+	pusho = push origin
+	adda = add --all
+	pushrhc = push openshift HEAD
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	ll = log --stat --abbrev-commit
+	alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\t=> \\2/' | sort
