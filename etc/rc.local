@@ -1,0 +1,62 @@
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+
+#echo deadline > /sys/block/sda/queue/scheduler
+
+#echo 1 > /sys/block/sda/queue/iosched/fifo_batch
+
+#echo noop > /sys/block/sda/queue/scheduler
+
+sleep 10
+
+#fstrim -v /
+
+# Modification for SSD
+for dir in apparmor apt cups dist-upgrade fsck gdm installer samba unattended-upgrades ;
+do
+           if [ ! -e /var/log/$dir ] ; then
+                   sudo mkdir /var/log/$dir
+           fi
+done
+
+
+#echo -n conservative > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+#echo -n conservative > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
+#echo -n conservative > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
+#echo -n conservative > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
+#echo -n conservative > /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor
+#echo -n conservative > /sys/devices/system/cpu/cpu5/cpufreq/scaling_governor
+#echo -n conservative > /sys/devices/system/cpu/cpu6/cpufreq/scaling_governor
+#echo -n conservative > /sys/devices/system/cpu/cpu7/cpufreq/scaling_governor
+
+#sudo sh -c "echo ondemand > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"
+#sudo sh -c "echo ondemand > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor"
+#sudo sh -c "echo ondemand > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor"
+#sudo sh -c "echo ondemand > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor"
+#sudo sh -c "echo ondemand > /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor"
+#sudo sh -c "echo ondemand > /sys/devices/system/cpu/cpu5/cpufreq/scaling_governor"
+#sudo sh -c "echo ondemand > /sys/devices/system/cpu/cpu6/cpufreq/scaling_governor"
+#sudo sh -c "echo ondemand > /sys/devices/system/cpu/cpu7/cpufreq/scaling_governor"
+
+
+sudo sh -c "echo 1 | tee /sys/module/snd_hda_intel/parameters/power_save"
+
+sudo sh -c "echo Y | tee /sys/module/snd_hda_intel/parameters/power_save_controller"
+
+pkill pulseaudio
+
+pulseaudio --start 
+
+sudo fstrim -v /
+
+exit 0
