@@ -1,0 +1,24 @@
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+proc            /proc           proc    nodev,noexec,nosuid 0       0
+# / was on /dev/sda1 during installation
+UUID=a10c8fb8-1f64-4202-ab06-7f0ca0b3148c /               ext4    noatime,nodiratime,errors=remount-ro 0       1
+# swap was on /dev/sda5 during installation
+UUID=67e14d7a-ac7f-48d1-99c0-b8176db532a9 none            swap    sw              0       0
+
+#
+# Modification for SSD
+tmpfs      /var/log        tmpfs      defaults,noatime        0    0
+tmpfs      /tmp          tmpfs      defaults,noatime,mode=1777    0    0
+
+# Uncomment these after all server based applications installed - eg. apache
+#tmpfs /tmp tmpfs defaults,noatime,mode=1777 0 0
+#tmpfs /var/tmp tmpfs defaults,noatime,mode=1777 0 0
+#tmpfs /var/log tmpfs defaults,noatime,mode=0755 0 0 
+#tmpfs /var/log/apt tmpfs defaults,noatime 0 0
+#none /var/cache unionfs dirs=/tmp:/var/cache=ro 0 0
